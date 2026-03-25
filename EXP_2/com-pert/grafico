@@ -40,9 +40,9 @@ def extrair_dados(nome_arquivo):
 # 2. Ler os 3 arquivos txt
 # ==========================================
 # IMPORTANTE: Coloque os nomes corretos dos seus 3 arquivos aqui
-t1, cmd1, y1 = extrair_dados('kp_012_sp.txt')
-t2, cmd2, y2 = extrair_dados('kp_018_sp.txt')
-t3, cmd3, y3 = extrair_dados('kp_024_sp.txt')
+t1, cmd1, y1 = extrair_dados('kp_012_cp.txt')
+t2, cmd2, y2 = extrair_dados('kp_018_cp.txt')
+t3, cmd3, y3 = extrair_dados('kp_024_cp.txt')
 
 # ==========================================
 # 3. Plotar o Gráfico

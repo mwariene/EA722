@@ -1,0 +1,69 @@
+import matplotlib.pyplot as plt
+
+# ==========================================
+# 1. Função para ler e limpar os arquivos
+# ==========================================
+def extrair_dados(nome_arquivo):
+    tempos = []
+    comandos = []  # Nova lista para guardar a 3ª coluna
+    encoders = []
+    
+    # Abre o arquivo para leitura
+    with open(nome_arquivo, 'r') as f:
+        for linha in f:
+            # Apaga os colchetes e pontos e vírgulas da linha
+            linha_limpa = linha.replace('[', '').replace(']', '').replace(';', '').strip()
+            
+            # Pula linhas vazias
+            if not linha_limpa:
+                continue
+                
+            # Separa os números pelos espaços
+            partes = linha_limpa.split()
+            
+            # Tenta converter para número
+            try:
+                tempo = float(partes[1])       # A 2ª coluna é o índice 1 (Time)
+                comando = float(partes[2])     # A 3ª coluna é o índice 2 (Commanded Pos)
+                encoder = float(partes[3])     # A 4ª coluna é o índice 3 (Encoder 1 Pos)
+                
+                tempos.append(tempo)
+                comandos.append(comando)
+                encoders.append(encoder)
+            except (ValueError, IndexError):
+                # Ignora o cabeçalho
+                continue 
+                
+    return tempos, comandos, encoders
+
+# ==========================================
+# 2. Ler os 3 arquivos txt
+# ==========================================
+# IMPORTANTE: Coloque os nomes corretos dos seus 3 arquivos aqui
+t1, cmd1, y1 = extrair_dados('kp_012_cp.txt')
+t2, cmd2, y2 = extrair_dados('kp_018_cp.txt')
+t3, cmd3, y3 = extrair_dados('kp_024_cp.txt')
+
+# ==========================================
+# 3. Plotar o Gráfico
+# ==========================================
+plt.figure(figsize=(10, 6))
+
+# 1º - Plota a Referência (Commanded Pos). 
+# Como é igual para todos, usamos a do arquivo 1. 
+# Linha preta (black), tracejada ('--') e um pouco mais grossa (linewidth=2)
+plt.plot(t1, cmd1, color='black', linestyle='--', linewidth=2, label='Referência (Comando)')
+
+# 2º - Plota os 3 sinais do Encoder
+plt.plot(t1, y1, color='blue', label='kp_012')
+plt.plot(t2, y2, color='red', label='kp_018')
+plt.plot(t3, y3, color='green', label='kp_024')
+
+# Configurações do Gráfico
+plt.title('Comparação da Posição do Encoder vs. Referência')
+plt.xlabel('Tempo (s)')
+plt.ylabel('Posição')
+plt.legend()
+plt.grid(True)
+
+plt.show()

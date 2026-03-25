@@ -39,7 +39,6 @@ def extrair_dados(nome_arquivo):
 # ==========================================
 # 2. Ler os 3 arquivos txt
 # ==========================================
-# IMPORTANTE: Coloque os nomes corretos dos seus 3 arquivos aqui
 t1, cmd1, y1 = extrair_dados('kp_012_cp.txt')
 t2, cmd2, y2 = extrair_dados('kp_018_cp.txt')
 t3, cmd3, y3 = extrair_dados('kp_024_cp.txt')
@@ -50,7 +49,6 @@ t3, cmd3, y3 = extrair_dados('kp_024_cp.txt')
 plt.figure(figsize=(10, 6))
 
 # 1º - Plota a Referência (Commanded Pos). 
-# Como é igual para todos, usamos a do arquivo 1. 
 # Linha preta (black), tracejada ('--') e um pouco mais grossa (linewidth=2)
 plt.plot(t1, cmd1, color='black', linestyle='--', linewidth=2, label='Referência (Comando)')
 
